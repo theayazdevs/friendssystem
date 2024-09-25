@@ -1,3 +1,8 @@
+Friends system with PHP, MySQL, JavaScript, Ajax, HTML, CSS
+PHP for backend server
+Ajax for live search and live map
+Open Layers for OpenStreetMap to treack friends based on their co-ordinates
+
 ![1](https://github.com/user-attachments/assets/174d753e-dc83-4882-a49c-22dd640895e3)
 ![2](https://github.com/user-attachments/assets/4f4a1acd-04b3-4715-b184-faab3a1ce9c5)
 ![3](https://github.com/user-attachments/assets/d8dd57ed-3f4d-41ff-9365-3b1b94e85e6c)
