@@ -1,8 +1,8 @@
-Friends system with PHP, MySQL, JavaScript, Ajax, HTML, CSS
-PHP for backend server
-Ajax for live search and live map
-Open Layers for OpenStreetMap to treack friends based on their co-ordinates
-JavaScript image croper feature to crop and download images
+-Friends system with PHP, MySQL, JavaScript, Ajax, HTML, CSS
+-PHP for backend server
+-Ajax for live search and live map
+-Open Layers for OpenStreetMap to treack friends based on their co-ordinates
+-JavaScript image croper feature to crop and download images
 
 ![1](https://github.com/user-attachments/assets/174d753e-dc83-4882-a49c-22dd640895e3)
 ![2](https://github.com/user-attachments/assets/4f4a1acd-04b3-4715-b184-faab3a1ce9c5)
