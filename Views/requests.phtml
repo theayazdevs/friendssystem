@@ -1,0 +1,63 @@
+<?php
+require 'Views/template/header.phtml'
+?>
+<div class="container alert-info  mt-2 p-5" >
+    <h1 class="display-4 text-center bg-info rounded-pill text-white">REQUESTS</h1>
+        <?php
+        //echo "Display All users here";
+        $receivedRequests = $friendObj->receivedRequests($currentUserID);
+        $sentRequests = $friendObj->sentRequests($currentUserID );
+        echo '<div class="alert-success border-bottom border-success m-3"><h1 class="display-4">RECEIVED:</h1>';
+        if($receivedRequests)
+        {
+
+            foreach ($receivedRequests as $row) {
+                //$getSenderID = $row->id;
+                $getUserData =  $currenUser->findUserById($row->friend1);
+                //echo '<pre>' , var_dump($row) , '</pre>';
+                //echo '<pre>' , var_dump($getUserData['id']) , '</pre>';
+                //GET pending requests
+                    echo '<div class="row alert-primary" id="profileList">
+                                <div class="row justify-content-center  col-lg-4"><span>' . $getUserData['username'] . '</span></div>
+                                <div class="row justify-content-center  col-lg-4"><img src="' . $getUserData['userImage'] . '" height="50" width="50" alt="Profile image"></div>
+                                <form action="friendFunctions.php?id='.$getUserData['id'].'" method="POST" class="row justify-content-center  col-lg-4">
+                                <button type="submit" name="acceptRequest" class="btn-success ">Accept Friend</button>
+                                <button type="submit" name="rmvFriend" class="btn-danger">Ignore</button>
+                                </form>
+                                </div>';
+            }
+        }
+        else
+        {
+            echo '<h4 class="alert-info text-center">You have not received any friend requests yet!</h4>';
+        }
+        echo '</div>';
+        echo '<div class="alert-success border-bottom border-success m-3"><h1 class="display-4">SENT:</h1>';
+        if ($sentRequests)
+        {
+            foreach ($sentRequests as $row) {
+                $getUserData =  $currenUser->findUserById($row->friend2);
+                //echo '<pre>' , var_dump($row) , '</pre>';
+                //GET pending requests
+                echo '<div class="row alert-primary" id="profileList">
+                                <div class="row justify-content-center col-lg-4"><span>' . $getUserData['username'] . '</span></div>
+                                <div class="row justify-content-center col-lg-4"><img src="' . $getUserData['userImage'] . '" height="50" width="50" alt="Profile image"></div>
+                          
+                                <form action="friendFunctions.php?id='.$getUserData['id'].'" method="POST" class="row justify-content-center  col-lg-4">
+                                <button class="btn-primary rounded"><a href="viewProfile.php?id=' . $row->friend2 . '" class="text-decoration-none text-white">See profile</a></button>
+                                <button type="submit" name="rmvFriend" class="btn-danger">Cancel</button>
+                                </form>
+                                </div>';
+            }
+
+        }
+        else
+        {
+            echo '<h4 class="alert-info text-center">You have not sent any friend requests yet!</h4>';
+        }
+        echo '</div>';
+        ?>
+    </div>
+</div>
+</body>
+</html>

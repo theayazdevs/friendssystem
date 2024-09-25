@@ -1,0 +1,53 @@
+<?php
+require 'Views/template/header.phtml'
+?>
+<div class="container bg-info mt-5 rounded p-5" >
+    <!-- Showing the current user friends -->
+    <h3 class="row justify-content-center bg-success pt-1 rounded-pill mx-2">Your Friends</h3>
+    <?php
+    //Display current user friends
+    $allFriends = $friendObj->fetchAllUserFriends($currentUserID);
+    if($allFriends)
+    {
+        foreach ($allFriends as $row) {
+            if ($row->getStatus() != 3 && $row->getStatus() != 1) {
+                //only show accepted FRIENDS
+                $friend = $row->getFriendOne();
+                if ($row->getFriendOne() == $currentUserID) {
+                    $friend = $row->getFriendTwo();
+                }
+                echo '<div class="row justify-content-center alert-info" id="profileList">
+                                <div class="row justify-content-center  col-lg-2"><img src="' . $row->getUserImage() . '" height="50" width="50" alt="Profile image"></div>
+                                <div class="row justify-content-center  col-lg-2">' . $row->getFirstName()." ".$row->getLastName() . '</div>
+                                <div class="row justify-content-center  col-lg-2">' . $row->getUsername() . '</div>
+                                <div class="row justify-content-center  col-lg-2">' . $row->getEmail() . '</div>
+                                <div class="row justify-content-center  col-lg-2"><a href="viewProfile.php?id=' . $friend . '" class="btn-primary m-1 p-3 text-decoration-none">See profile</a></div>
+                                </div>';
+            }
+
+        }
+        echo '';
+    }
+    else
+    {
+        echo '<h4>You have no friends!</h4>';
+    }
+    ?>
+    <div class="row justify-content-center">
+        <button id="recenterBtn" class="m-1">Recenter</button>
+        <button id="reloadBtn" class="m-1">Reload Map</button>
+    </div>
+    <div class="row justify-content-center col-lg-12">
+        <div id="Map" style="width:800px;height:600px"></div>
+    </div>
+    <script src="js/OpenLayers-2.13.1/OpenLayers-2.13.1/OpenLayers.js"></script>
+    <!-- code re-use, instead of writing big JS chunks of code to get these, used the information already available-->
+    <script>
+        var initialLat  = <?php echo $userData['lat']; ?> ;
+        var initialLong = <?php echo $userData['lng']; ?> ;
+        var currentUserID = <?php echo $currentUserID?> ;
+    </script>
+    <script src="js/userLocation.js"></script>
+</div>
+</body>
+</html>

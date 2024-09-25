@@ -1,0 +1,96 @@
+<?php
+require_once 'Views/template/header.phtml'
+?>
+<div class="container bg-info mt-5 rounded pt-5" >
+    <form action="" method="GET">
+        <div class="row justify-content-center" id="searchInfo">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="txtSearch" id="txtSearch" onkeyup="liveSearch(this.value)">
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" type="submit" name="submitSearch" value="Searched">
+                            <span class="glyphicon glyphicon-search"> Search</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <h4 class="col-md-12 form-text text-muted alert-info p-1 justify-content-center">Valid User Search: First Name, Last Name, Username, Email</h4>
+        </div>
+    </form>
+    <div   class="row ">
+        <div class="col-sm m-1 ">
+            <div class="row justify-content-center">
+                <input type="radio" value="all" name="radioBtn" checked>
+                <label for="all"> All</label>
+            </div>
+        </div>
+        <div class="col-sm m-1">
+            <div class="row justify-content-center">
+                <input type="radio" value="a" name="radioBtn" >
+                <label for="a"> First Name</label>
+            </div>
+        </div>
+        <div class="col-sm m-1">
+            <div class="row justify-content-center">
+                <input type="radio" value="b" name="radioBtn">
+                <label for="b"> Last Name</label>
+            </div>
+        </div>
+        <div class="col-sm m-1">
+            <div class="row justify-content-center">
+                <input type="radio" value="c" name="radioBtn">
+                <label for="c"> Email</label>
+            </div>
+        </div>
+        <div class="col-sm m-1">
+            <div class="row justify-content-center">
+                <input type="radio" value="d" name="radioBtn">
+                <label for="d"> Username</label>
+            </div>
+        </div>
+    </div>
+    <div class='col justify-content-center' id ='suggestions'></div>
+    <?php
+    //display search results
+    //var_dump($userCount);
+    //echo '<prev>'.$searchResults.'</prev>';
+    if(!empty($searchResults))
+    {
+        $userCount=count($searchResults);
+        echo '<div class="row"><h4 class="alert-success rounded-pill p-1">Users Found: '.$userCount.'</h4></div>';
+        foreach ($searchResults as $row) {
+            echo '<div class="row justify-content-center warning" id ="profileList">
+                                <div class="row justify-content-center  col-lg-2"><span title="First Name"> ' .$row['firstName']." ".$row['lastName']. '</span></div>
+                                <div class="row justify-content-center  col-lg-2">' .$row['username']. '</div>
+                                <div class="row justify-content-center  col-lg-2">' .$row['email']. '</div>
+                                <div class="row justify-content-center  col-lg-2"><img src="' .$row['userImage']. '" height="50" width="50" alt="Profile image"></div>
+                                <div class="row justify-content-center  col-lg-2"><a href="viewProfile.php?id=' .$row['id'] .'" class="btn-primary p-3 text-decoration-none">See profile</a></div>
+                      </div>';
+        }
+    }
+    ?>
+     <h3 class="row justify-content-center bg-warning pt-1 rounded-pill mx-2">All Users</h3>
+            <?php
+                $userCount=count($allUsers);
+                //var_dump($userCount);
+                echo '<div class="row justify-content-lg-start"><p class="alert-primary rounded-pill p-1">Registered Users: '.$userCount.'</p></div>';
+                if($allUsers)
+                {
+                    foreach ($allUsers as $row){
+                        echo '<div class="row justify-content-center alert-info" id="profileList">
+                                <div class="row justify-content-center  col-lg-4 border-bottom border-primary">' .$row->getFirstName()." ".$row->getLastName(). '</div>
+                                <div class="row justify-content-center  col-lg-4"><img src="' .$row->getUserImage() . '" height="50" width="50" alt="Profile image"></div>
+                                <div class="row justify-content-center  col-lg-4"><a href="viewProfile.php?id=' .$row->getID().'" class="btn-primary rounded-pill border border-success text-decoration-none p-3">See profile</a></div>
+                                </div>';
+                    }
+
+
+                }
+                else
+                {
+                    echo '<h4>No users registered!</h4>';
+                }
+            ?>
+</div>
+<script src="js/liveSearch.js"></script>
+
